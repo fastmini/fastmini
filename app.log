@@ -1,0 +1,7 @@
+2021-08-10T00:20:06.810+0800	DEBUG	fastmini/main.go:49	请求URL: %shttp://localhost:3000
+2021-08-10T00:20:09.834+0800	DEBUG	fastmini/main.go:49	请求URL: %shttp://localhost:3000
+2021-08-10T00:20:45.223+0800	DEBUG	fastmini/main.go:49	请求URL: http://localhost:3000
+2021-08-10T01:35:15.304+0800	DEBUG	fastmini/main.go:69	请求URL: http://localhost:3000
+2021-08-10T01:35:17.064+0800	DEBUG	fastmini/main.go:69	请求URL: http://localhost:3000
+2021-08-10T01:35:20.759+0800	DEBUG	fastmini/main.go:69	请求URL: http://localhost:3000
+2021-08-10T01:35:25.254+0800	DEBUG	fastmini/main.go:69	请求URL: http://localhost:3000
