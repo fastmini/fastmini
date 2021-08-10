@@ -77,10 +77,21 @@ func main() {
 	}
 
 	app.Get("/", func(c *fiber.Ctx) error {
+		c.Response().Header.Set("Server", "123")
 		global.FM_LOG.Debugf("时间: %d", time.Now().Unix())
 		global.FM_LOG.Debugf("请求URL: %s", c.BaseURL())
 		global.FM_LOG.Debugf("请求requesttid: %s", c.Locals("requestid"))
 		return c.SendString("Hello, World 👋!")
+	})
+
+	app.Static("/public", "./public", fiber.Static{
+		Compress: true,
+		Browse: true,
+	})
+
+	app.Get("/download", func(c *fiber.Ctx) error {
+		c.Set("Content-Type", "text/plain; charset=utf-8")
+		return c.SendFile("./public/update.json", false)
 	})
 
 	log.Fatal(app.Listen(":3002"))
@@ -88,7 +99,7 @@ func main() {
 
 func logResponseBody(c *fiber.Ctx) error {
 	c.Next()
-	c.Response().SetBodyString("1111")
-	global.FM_LOG.Debugf("body->%s", c.Response().Body())
+	//c.Response().SetBodyString("1111")
+	global.FM_LOG.Debugf("body->%s", c.Response().Header.String())
 	return nil
 }
