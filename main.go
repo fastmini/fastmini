@@ -10,9 +10,11 @@ import (
 	"fastmini/config"
 	"fastmini/global"
 	ZAP_LOGGER "fastmini/logger"
+	"fmt"
 	"log"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -38,10 +40,19 @@ func main() {
 	defer global.FM_LOG.Sync()
 
 	app.Use(requestid.New())
+	app.Use(requestid.New(requestid.Config{
+		Header:    fiber.HeaderXRequestID,
+		Generator: func() string {
+			//global.FM_LOG.Debugf("uuid: %v", utils.UUIDv4())
+			return fmt.Sprintf("req.%v", time.Now().UnixNano())
+		},
+	}))
+	app.Use(logResponseBody)
 
 	format := "[${time}] ${pid} ${locals:requestid} ${status} - ${latency} - ${method} ${path}​"
 	timeFormat := "2006-01-02 15:04:05"
 	timeZone := "Asia/Shanghai"
+
 	if config.Config("APP_LOGGER", "file") == "file" {
 		file, err := os.OpenFile("./request.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 		if err != nil {
@@ -66,9 +77,18 @@ func main() {
 	}
 
 	app.Get("/", func(c *fiber.Ctx) error {
+		global.FM_LOG.Debugf("时间: %d", time.Now().Unix())
 		global.FM_LOG.Debugf("请求URL: %s", c.BaseURL())
+		global.FM_LOG.Debugf("请求requesttid: %s", c.Locals("requestid"))
 		return c.SendString("Hello, World 👋!")
 	})
 
-	log.Fatal(app.Listen(":3000"))
+	log.Fatal(app.Listen(":3002"))
+}
+
+func logResponseBody(c *fiber.Ctx) error {
+	c.Next()
+	c.Response().SetBodyString("1111")
+	global.FM_LOG.Debugf("body->%s", c.Response().Body())
+	return nil
 }
