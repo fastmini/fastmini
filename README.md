@@ -1,4 +1,4 @@
-# GoApp
+# FastMini
 
 ## 基于fiber框架改造的性能炸裂的一站式解决方案
 
