@@ -14,12 +14,12 @@ import (
 )
 
 type CustomClaims struct {
-	UserId          string `json:"userId"`
-	PasswordVersion int8   `json:"passwordVersion"`
+	UserId          int64 `json:"userId"`
+	PasswordVersion int8  `json:"passwordVersion"`
 	jwt.StandardClaims
 }
 
-func CreateToken(userId string, passwordVersion int8) string {
+func CreateToken(userId int64, passwordVersion int8) string {
 	customClaims := &CustomClaims{
 		UserId:          userId,
 		PasswordVersion: passwordVersion,

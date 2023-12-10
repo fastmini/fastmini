@@ -3,6 +3,7 @@ package cmd
 import (
 	"errors"
 	"fiber/cmd/api"
+	"fiber/cmd/gen"
 	"fiber/cmd/version"
 	"fiber/global"
 	"fmt"
@@ -36,6 +37,7 @@ func tip() {
 func init() {
 	rootCmd.AddCommand(version.StartCmd)
 	rootCmd.AddCommand(api.StartCmd)
+	rootCmd.AddCommand(gen.StartCmd)
 }
 
 func Execute() {

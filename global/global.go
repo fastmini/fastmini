@@ -4,6 +4,7 @@
 package global
 
 import (
+	"fiber/model"
 	"github.com/elastic/go-elasticsearch/v7"
 	"github.com/gomodule/redigo/redis"
 	log "github.com/sirupsen/logrus"
@@ -32,11 +33,15 @@ var LogFile *os.File
 var ES *elasticsearch.Client
 
 type AuthUserPayload struct {
-	UserId string
+	UserId int64
 }
 
 var AuthUser *AuthUserPayload
 
-// func SetAuthUser(user *model.UserModel) {
-//	AuthUser = &AuthUserPayload{UserId: user.Id}
-// }
+func SetAuthUser(user *model.SysUser) {
+	AuthUser = &AuthUserPayload{UserId: user.Id}
+}
+
+func GetAuthUser() int64 {
+	return AuthUser.UserId
+}

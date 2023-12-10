@@ -15,7 +15,6 @@ import (
 	"fiber/router"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
-	"github.com/joho/godotenv"
 	"github.com/spf13/cobra"
 	"log"
 )
@@ -41,10 +40,6 @@ func setup() {
 func run() error {
 	defer global.CloseGlobal()
 	core.Tips()
-	// 配置文件加载
-	if err := godotenv.Load(".env"); err != nil {
-		panic("Error loading .env file")
-	}
 	// 启动配置
 	addr := fmt.Sprintf(":%s", config.Config("PORT"))
 	initConfig := fiber.Config{

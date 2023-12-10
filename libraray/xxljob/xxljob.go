@@ -4,7 +4,7 @@
 package xxljob
 
 import (
-	"fiber/app/task"
+	"fiber/app/task/task"
 	"fiber/config"
 	"fmt"
 	"github.com/gofiber/fiber/v2"

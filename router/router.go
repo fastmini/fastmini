@@ -4,8 +4,8 @@
 package router
 
 import (
-	taskApi "fiber/app/api/task"
-	userApi "fiber/app/api/user"
+	"fiber/app/system/api"
+	taskApi "fiber/app/task/api"
 	businessError "fiber/error"
 	"fiber/global"
 	"fiber/middleware"
@@ -21,16 +21,14 @@ func AppRouter(app *fiber.App) {
 		global.BLog.Infof("hello")
 		return ctx.JSON(resultVo.Success("ok", ctx), fiber.MIMEApplicationJSONCharsetUTF8)
 	})
-	app.Get("/_healthz", func(ctx *fiber.Ctx) error {
+	app.Get("/_health", func(ctx *fiber.Ctx) error {
 		return ctx.JSON(resultVo.Success("success", ctx), fiber.MIMEApplicationJSONCharsetUTF8)
 	})
 	app.Post("/task/testCheck", taskApi.TestCheck)
-	app.Get("/user/count", userApi.GetUser)
+	app.Post("/system/login", api.Login)
 	// 需要登录鉴权的路由
 	apiRoute := app.Group("", middleware.AuthMiddleware())
-	apiRoute.Get("/userInfo", func(ctx *fiber.Ctx) error {
-		return ctx.JSON(resultVo.Success(nil, ctx), fiber.MIMEApplicationJSONCharsetUTF8)
-	})
+	apiRoute.Get("/user/profile", api.Profile)
 	// 其他
 	app.Get("/", func(ctx *fiber.Ctx) error {
 		return ctx.JSON(resultVo.Success(nil, ctx), fiber.MIMEApplicationJSONCharsetUTF8)

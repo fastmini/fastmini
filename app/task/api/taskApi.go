@@ -1,12 +1,12 @@
 // Package task
 // @Description:
 // @Author AN 2023-12-06 23:21:34
-package task
+package api
 
 import (
 	"context"
 	"encoding/json"
-	"fiber/app/task"
+	"fiber/app/task/task"
 	businessError "fiber/error"
 	"fiber/resultVo"
 	"fmt"
