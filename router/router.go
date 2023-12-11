@@ -25,7 +25,8 @@ func AppRouter(app *fiber.App) {
 		return ctx.JSON(resultVo.Success("success", ctx), fiber.MIMEApplicationJSONCharsetUTF8)
 	})
 	app.Post("/task/testCheck", taskApi.TestCheck)
-	app.Post("/system/login", api.Login)
+	app.Post("/user/login", api.Login)
+	app.Get("/system/getBingBackgroundImage", api.GetBingBackgroundImage)
 	// 需要登录鉴权的路由
 	apiRoute := app.Group("", middleware.AuthMiddleware())
 	apiRoute.Get("/user/profile", api.Profile)

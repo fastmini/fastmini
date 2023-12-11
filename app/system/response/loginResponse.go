@@ -1,6 +1,6 @@
 package response
 
 type LoginResponse struct {
-	Token  string
-	Expire int64
+	Token      string `json:"token"`
+	ExpireTime int64  `json:"expire_time"`
 }

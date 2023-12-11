@@ -20,7 +20,7 @@ func Login(request *request.LoginRequest) response.LoginResponse {
 	// 验证用户密码是否正确
 	if ComparePassword(user.Password, request.Password) {
 		token := utils.CreateToken(user.Id, user.PasswordVersion)
-		return response.LoginResponse{Token: token, Expire: int64(config.TTL)}
+		return response.LoginResponse{Token: token, ExpireTime: int64(config.TTL)}
 	}
 	panic(businessError.New(businessError.BAD_REQUEST, "手机号或密码不正确"))
 }

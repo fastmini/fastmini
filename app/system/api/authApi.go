@@ -19,5 +19,11 @@ func Login(c *fiber.Ctx) error {
 		return c.JSON(resultVo.Fail(businessError.New(businessError.BAD_REQUEST, err.Error()), c))
 	}
 	user := service.Login(p)
-	return c.JSON(user)
+	return c.JSON(resultVo.Success(user, c))
+}
+
+func GetBingBackgroundImage(c *fiber.Ctx) error {
+	data := make(map[string]interface{})
+	data["url"] = ""
+	return c.JSON(resultVo.Success(data, c))
 }
